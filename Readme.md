@@ -12,8 +12,6 @@ Una vez el proyecto ejecutado, si el navegador no se abre, entonces, puede acced
 
 ## Características
 
----
-
 ### Operadores
 
 El buscador soporta varios operadores:
