@@ -6,6 +6,8 @@
 Content/*.txt
 !Content/test.txt
 
+.vscode
+
 **/bin
 **/obj
 
