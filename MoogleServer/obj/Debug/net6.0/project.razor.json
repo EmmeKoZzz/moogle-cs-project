@@ -1,0 +1,51 @@
+{
+  "SerializedFilePath": "/home/EmmeKoZzz/Code/C#/Moogle! Javier Mustelier Garrido C-111/MoogleServer/obj/Debug/net6.0/project.razor.json",
+  "FilePath": "/home/EmmeKoZzz/Code/C#/Moogle! Javier Mustelier Garrido C-111/MoogleServer/MoogleServer.csproj",
+  "Configuration": {
+    "ConfigurationName": "MVC-3.0",
+    "LanguageVersion": "6.0",
+    "Extensions": [
+      {
+        "ExtensionName": "MVC-3.0"
+      }
+    ]
+  },
+  "ProjectWorkspaceState": {
+    "TagHelpers": [],
+    "CSharpLanguageVersion": 1000
+  },
+  "RootNamespace": "MoogleServer",
+  "Documents": [
+    {
+      "FilePath": "/home/EmmeKoZzz/Code/C#/Moogle! Javier Mustelier Garrido C-111/MoogleServer/_Imports.razor",
+      "TargetPath": "_Imports.razor",
+      "FileKind": "componentImport"
+    },
+    {
+      "FilePath": "/home/EmmeKoZzz/Code/C#/Moogle! Javier Mustelier Garrido C-111/MoogleServer/Pages/_Layout.cshtml",
+      "TargetPath": "Pages\\_Layout.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "/home/EmmeKoZzz/Code/C#/Moogle! Javier Mustelier Garrido C-111/MoogleServer/Shared/MainLayout.razor",
+      "TargetPath": "Shared\\MainLayout.razor",
+      "FileKind": "component"
+    },
+    {
+      "FilePath": "/home/EmmeKoZzz/Code/C#/Moogle! Javier Mustelier Garrido C-111/MoogleServer/Pages/_Host.cshtml",
+      "TargetPath": "Pages\\_Host.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "/home/EmmeKoZzz/Code/C#/Moogle! Javier Mustelier Garrido C-111/MoogleServer/Pages/Index.razor",
+      "TargetPath": "Pages\\Index.razor",
+      "FileKind": "component"
+    },
+    {
+      "FilePath": "/home/EmmeKoZzz/Code/C#/Moogle! Javier Mustelier Garrido C-111/MoogleServer/App.razor",
+      "TargetPath": "App.razor",
+      "FileKind": "component"
+    }
+  ],
+  "SerializationFormat": "0.3"
+}
