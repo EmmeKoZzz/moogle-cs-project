@@ -11,6 +11,9 @@ Content/*.txt
 **/bin
 **/obj
 
+report/*
+!report/*.tex
+
 # User-specific files
 *.rsuser
 *.suo
