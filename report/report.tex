@@ -1,6 +1,59 @@
 \documentclass[a4paper,12pt]{article}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
+\usepackage[default]{comfortaa}
+\usepackage[spanish]{babel}
+\usepackage{graphicx}
+\usepackage{geometry}
+
+\title{Moogle! Report}
+\author{Javier Mustelier Garrido}
+
 \begin{document}
-¡Hola, mundo! magnifico
+
+\newgeometry{left=1in,right=1in,top=3cm,bottom=2cm}
+
+% Presentation
+
+\begin{center}
+	\thispagestyle{empty}
+	\addtocounter{page}{-2} 
+
+	\fontsize{35}{1}
+	\bfseries Proyecto Moogle!
+
+	\vspace{1cm}
+	
+	\Large Javier Mustelier Garrido C122
+
+	\vspace{3cm}
+
+	\includegraphics[width=125pt]{Logo UH.jpeg}
+
+	\vspace{3cm}
+
+	\includegraphics[width=300pt]{matcom.png}
+
+	\vspace{2cm}
+
+	Universidad de la Habana 
+	
+	\large MATCOM - Facultad de Matemática y Computación
+	
+\end{center}
+\restoregeometry
+\normalsize
+
+\begin{center}
+	\thispagestyle{empty}
+	\tableofcontents
+	\clearpage
+\end{center}
+
+\section{Introduccion}
+
+El objetivo principal de este proyecto es desarrollar un programa capaz de realizar una busqueda, de forma eficaz y rápida, dentro de un extenso conjunto de documentos de texto plano, de aquellos documentos mas relevantes con respecto a una consulta. Utiliza una interfaz web, desarrollada sobre la tecnologia Razor utilizada en .Net, para brindar facilidad de uso al usuario; mientras q el motor de busqueda esta escrito puramente en el lenguaje C\#. Para lograr desarrollar este motor de busqueda se utilizaron varios metodos en solucion a las problematicas q tiene un proyecto de este tipo, entre ellas el uso del modelo vectorial y la medida TF-IDF, o el uso del algoritmo de Levenshtei; destacando la importancia del algebra lineal en la busqueda de soluciones a problemas capaces de optimizar y ahorrar tiempo en la vida cotidiana.
+
+El programa no solo es realiza una rapida y eficiente busqueda de informacion, también presenta varias funciones q ayudan a elegir y filtrar, y en resumen hacer aún mas preciso y cómodo el proceso de busqueda; para lograr esto se incluyen varios operadores de busqueda en la consulta y sugerencias de mejores consultas con el objetivo de corregir algún posible error en la escritura.
+
 \end{document}
