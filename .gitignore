@@ -11,7 +11,7 @@ Content/*.txt
 **/bin
 **/obj
 
-report/*
+informe/*
 presentación/*
 !*.tex
 
