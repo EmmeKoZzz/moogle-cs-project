@@ -1,0 +1,71 @@
+\documentclass[10pt]{article}
+% encode packages
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+% font familys
+\usepackage[default]{comfortaa}
+
+% graphics 
+\usepackage{graphicx}
+\usepackage{geometry}
+
+\title{Moogle! Report}
+\author{Javier Mustelier Garrido}
+
+\begin{document}
+
+\addtocounter{page}{-2} 
+
+\begingroup % Presentation
+\newgeometry{left=1in,right=1in,top=3cm,bottom=1.5in}
+
+\begin{center}
+	\thispagestyle{empty}
+	
+	\fontsize{35}{0}
+	\bfseries Proyecto Moogle!
+
+	\vspace{1cm}
+	
+	\Large Javier Mustelier Garrido C122 
+
+	\vspace{2cm}
+
+	\includegraphics[width=125pt]{../assets/uh.jpeg}
+
+	\vspace{2cm}
+
+	\includegraphics[width=300pt]{../assets/matcom.png}
+
+	\vspace{2cm}
+
+	Universidad de la Habana 
+	
+	\large{ MATCOM - Facultad de Matemática y Computación }
+	
+\end{center}
+\endgroup
+
+\begin{center} \huge {Presentación} \normalsize \end{center}
+\thispagestyle{empty}
+
+En este proyecto, hemos desarrollado un motor de búsqueda de documentos eficiente y preciso, diseñado para realizar búsquedas rápidas y relevantes en una amplia gama de documentos. Nuestra solución está basada en el poderoso y versátil entorno de desarrollo .Net.
+
+\vspace{.5cm}
+
+Principales características del motor de búsqueda:
+
+\vspace{.5cm}
+
+\begin{description}
+	\item[1. Modelo vectorial y medida TF-IDF:] Para determinar la relevancia de los documentos, utilizamos el modelo vectorial y la medida TF-IDF (Frecuencia de Término-Inversa de Frecuencia de Documento). Estas técnicas son ampliamente utilizadas en la recuperación de información y nos permiten calcular la similitud entre las consultas de los usuarios y los documentos indexados.
+	\item[2. Operadores en la consulta:] Nuestro motor de búsqueda permite a los usuarios utilizar varios operadores en sus consultas, para refinar y ajustar aún más los resultados. Esto brinda mayor flexibilidad y precisión en la búsqueda de información específica.
+	\item[3. Sugerencias de consulta y corrección de errores:] Si un usuario ingresa una consulta con pocos resultados o con posibles errores de escritura, nuestro motor de búsqueda ofrece sugerencias automáticas y correcciones para ayudar al usuario a obtener mejores resultados. Esto mejora la experiencia del usuario y asegura una mayor precisión en las búsquedas.
+	\item[4. Fragmento del contenido relevante:] Presentamos una porción del contenido de los documentos resultantes que mejor represente la similitud con la consulta del usuario. Esto brinda una vista previa útil para que los usuarios puedan evaluar rápidamente si el documento es relevante antes de abrirlo por completo.
+	
+\end{description}
+
+Nuestro objetivo principal es proporcionar una herramienta eficiente y efectiva para acceder a la información relevante dentro de grandes conjuntos de documentos. Con nuestra solución basada en el modelo vectorial y TF-IDF, los usuarios podrán realizar búsquedas inteligentes y precisas, ahorrando tiempo y maximizando la productividad.
+
+\end{document}
