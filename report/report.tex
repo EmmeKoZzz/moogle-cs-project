@@ -1,36 +1,48 @@
-\documentclass[a4paper,12pt]{article}
+\documentclass[10pt]{article}
+% encode packages
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
+
+% font familys
 \usepackage[default]{comfortaa}
+
+% languaje pack
 \usepackage[spanish]{babel}
+
+% graphics 
 \usepackage{graphicx}
 \usepackage{geometry}
+\usepackage{color}
+\usepackage{array}
+\usepackage{colortbl}
+\usepackage{xcolor}
+\usepackage{mathtools}
 
 \title{Moogle! Report}
 \author{Javier Mustelier Garrido}
 
 \begin{document}
 
-\newgeometry{left=1in,right=1in,top=3cm,bottom=2cm}
+\addtocounter{page}{-2} 
 
-% Presentation
+\begingroup % Presentation
+\newgeometry{left=1in,right=1in,top=3cm,bottom=1.5in}
 
 \begin{center}
 	\thispagestyle{empty}
-	\addtocounter{page}{-2} 
-
-	\fontsize{35}{1}
+	
+	\fontsize{35}{0}
 	\bfseries Proyecto Moogle!
 
 	\vspace{1cm}
 	
-	\Large Javier Mustelier Garrido C122
+	\Large Javier Mustelier Garrido C122 
 
-	\vspace{3cm}
+	\vspace{2cm}
 
 	\includegraphics[width=125pt]{Logo UH.jpeg}
 
-	\vspace{3cm}
+	\vspace{2cm}
 
 	\includegraphics[width=300pt]{matcom.png}
 
@@ -38,22 +50,254 @@
 
 	Universidad de la Habana 
 	
-	\large MATCOM - Facultad de Matemática y Computación
+	\large{ MATCOM - Facultad de Matemática y Computación }
 	
 \end{center}
-\restoregeometry
-\normalsize
+\endgroup % end presentation
 
-\begin{center}
-	\thispagestyle{empty}
+\begin{center} % Index page
 	\tableofcontents
+	\thispagestyle{empty}
 	\clearpage
-\end{center}
+\end{center} 
+
+\begingroup % Report corpose
+\newgeometry{bottom=3.5cm}
 
 \section{Introduccion}
 
-El objetivo principal de este proyecto es desarrollar un programa capaz de realizar una busqueda, de forma eficaz y rápida, dentro de un extenso conjunto de documentos de texto plano, de aquellos documentos mas relevantes con respecto a una consulta. Utiliza una interfaz web, desarrollada sobre la tecnologia Razor utilizada en .Net, para brindar facilidad de uso al usuario; mientras q el motor de busqueda esta escrito puramente en el lenguaje C\#. Para lograr desarrollar este motor de busqueda se utilizaron varios metodos en solucion a las problematicas q tiene un proyecto de este tipo, entre ellas el uso del modelo vectorial y la medida TF-IDF, o el uso del algoritmo de Levenshtei; destacando la importancia del algebra lineal en la busqueda de soluciones a problemas capaces de optimizar y ahorrar tiempo en la vida cotidiana.
+Este proyecto se basa principalmente en la construcción de un motor de búsqueda de documentos de texto. Utilizando el lenguaje de programación C\# y conceptos propios de las matemáticas como espacios vectoriales o vectores, se busca obtener, a partir de una consulta, una respuesta más o menos precisa que seria una lista de los documentos más relevantes respecto a la consulta.
 
-El programa no solo es realiza una rapida y eficiente busqueda de informacion, también presenta varias funciones q ayudan a elegir y filtrar, y en resumen hacer aún mas preciso y cómodo el proceso de busqueda; para lograr esto se incluyen varios operadores de busqueda en la consulta y sugerencias de mejores consultas con el objetivo de corregir algún posible error en la escritura.
+\section{Modelo vectorial}
+\label{sec:model}
 
+La primera problemática que se hizo presente era quizás la más obvia de todas: ¿Cómo calcular que tan similar o relevante es un documento con respecto a una palabra, frase u otro documento?. Como respuesta al problema se usó el modelo vectorial, que no es más que una forma de ver lo que representa un documento dentro de un conjunto de estos: cada documento representa un vector dentro de un espacio vectorial, que es el grupo de documentos a los que se quiere hacer la consulta, espacio donde cada palabra diferente existente entre todos los documentos es una dimensión distinta, permitiendo representar entonces a cada documento en un espacio de tantas dimensiones como palabras existan en él. Luego así se tiene que
+
+\vspace*{.2cm}
+
+Si tenemos los documentos:
+
+\begin{center}	
+	\colorbox[RGB]{200,200,200}{
+		\parbox[c][1.25cm]{10cm}{
+			\begin{center}
+				\textcolor[RGB]{50,50,50}{\bfseries doc1 = “el perro corre tras el gato” }
+	
+				\textcolor[RGB]{50,50,50}{\bfseries doc2 = “el gato persigue al ratón” }
+			\end{center}
+		}
+	}
+\end{center}
+Entonces el universo de palabras seria:
+
+\begin{center}	
+	\colorbox[RGB]{200,200,200}{
+		\parbox[c][1.25cm]{11cm}{
+			\begin{center}
+				\textcolor[RGB]{50,50,50}{\bfseries \{“el”, “perro”, ”corre”, ”tras”, ”gato”, ”persigue”, ”al”, ”ratón”\} }
+			\end{center}
+		}
+	}
+\end{center}
+Siguiendo lo que plantea el modelo vectorial los documentos se representan en
+vectores de la siguiente manera:
+
+\renewcommand{\arraystretch}{1.5}
+
+\begin{table}[h]
+	\centering
+	\arrayrulecolor[RGB]{50,50,50}
+	\bfseries \textcolor[RGB]{50,50,50}{
+		\begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+			\hline
+			\rowcolor[RGB]{200,200,200}
+			& \""el" & "perro" & \""corre" & "tras" & "gato" & "persigue" & \""al" & "ratón" \\
+			\hline
+			\rowcolor[RGB]{200,200,200}
+			doc1 & 2 & 1 & 1 & 1 & 1 & 1 & 0 & 0 \\
+			\hline
+			\rowcolor[RGB]{200,200,200}
+			doc2 & 1 & 0 & 0 & 0 & 1 & 1 & 1 & 1 \\
+			\hline
+		\end{tabular}
+	}
+\end{table}
+
+Así es posible realizar las operaciones propias de los espacios vectoriales sobre los documentos (especialmente las referentes a la geometría analítica), operaciones que incluyen, convenientemente, cálculos para hallar la similitud entre dos vectores.
+
+\clearpage
+\section{TF-IDF (Term Frequency-Inverse Document Frequency)}
+\label{sec:tf-idf}
+
+Una vez con la idea del modelo vectorial en mente, se presenta el siguiente problema: “No es suficiente representar los documentos como vectores donde el valor de la dimensión sea la cantidad de veces que se repita un término dentro del texto; se tiene que saber que tan importante es dentro de cada documento, así si esta palabra forma parte de la consulta, se tendrá en cuenta los documentos donde ésta sea más importante, pero, ¿Cómo?”.
+
+\vspace*{.2cm}
+
+Para resolver dicho problema se utilizo una medida, el TF-IDF( term frequency - inverse document frequency ), para darle peso ( importancia ) a cada palabra. El primer paso de este algoritmo consiste en calcular la frecuencia de cada palabra en el documento por la formula:
+
+\Huge
+\begin{equation*}		
+	TF = \frac{t}{T}
+\end{equation*}
+\normalsize
+
+\vspace{1cm}
+
+Donde \large\textbf{t}\normalsize\hspace{1pt} es la cantidad de veces que aparece el término y \large\textbf{T}\normalsize\hspace{1pt} es la cantidad total de términos. Luego el TF de cada término se multiplica por el IDF de cada palabra respectivamente; el calculo del IDF se realiza mediante la formula
+
+\Huge
+\begin{equation*}		
+	IDF = \log{\frac{D}{d}}
+\end{equation*}
+\normalsize
+
+\vspace{1cm}
+
+Donde \large\textbf{D}\normalsize\hspace{1pt} es la cantidad total de documentos y \large\textbf{d}\normalsize\hspace{1pt} la cantidad de documentos en donde aparece el término correspondiente.
+
+Con el IDF, mientras más documentos aparezca la palabra, más importancia pierde, y si aparece en todos las archivos esta pierda importancia por completo, permitiendo eliminar así las palabras poco relevantes como las conjunciones o las preposiciones.
+
+\vspace{.2cm}
+
+Luego en el vector del documento cada dimension toma el valor del TF-IDF
+correspondiente a la palabra, de la siguiente manera:
+
+\vspace{.2cm}
+\textbf{Primero el cálculo del TF en cada término:}
+
+\begin{table}[h]
+	\centering
+	\arrayrulecolor[RGB]{50,50,50}
+	\bfseries \textcolor[RGB]{50,50,50}{
+		\begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+			\hline
+			\rowcolor[RGB]{200,200,200}
+			& \""el" & "perro" & \""corre" & "tras" & "gato" & "persigue" & \""al" & "ratón" \\
+			\hline
+			\rowcolor[RGB]{200,200,200}
+			doc1 & 0.33 & 0.16 & 0.16 & 0.16 & 0.16 & 0 & 0 & 0 \\
+			\hline
+			\rowcolor[RGB]{200,200,200}
+			doc2 & 0.2 & 0 & 0 & 0 & 0.2 & 0.2 & 0.2 & 0.2 \\
+			\hline
+		\end{tabular}
+	}
+\end{table}
+
+\textbf{Luego cada TF se multiplica por el IDF de cada término:}
+\begin{table}[h]
+	\centering
+	\arrayrulecolor[RGB]{50,50,50}
+	\bfseries \textcolor[RGB]{50,50,50}{
+		\begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+			\hline
+			\rowcolor[RGB]{200,200,200}
+			& \""el" & "perro" & \""corre" & "tras" & "gato" & "persigue" & \""al" & "ratón" \\
+			\hline
+			\rowcolor[RGB]{200,200,200}
+			doc1 & 0 & 0.049 & 0.049 & 0.049 & 0 & 0 & 0 & 0 \\
+			\hline
+			\rowcolor[RGB]{200,200,200}
+			doc2 & 0 & 0 & 0 & 0 & 0 & 0.06 & 0.06 & 0.06 \\
+			\hline
+		\end{tabular}
+	}
+\end{table}
+
+De esta forma se obtiene una matriz Documento-Término donde cada casilla es la relevancia del término en el documento correspondiente.
+
+\section{Matriz Documento-Término}
+\label{sec:matrix}
+
+Ya que todos los documentos están contenidos en una carpeta y estos no cambian en cada consulta, el proceso de computar todos los archivos para obtener la
+matriz se puede realizar una sola vez: justo cuando se inicia la aplicación. Con un algoritmo q aprovecha el ciclo de análisis de cada documento para obtener extraer toda la información posible para así minimizar la cantidad de procesamiento necesario y aumentar la eficiencia. 
+
+El programa va a utilizar esta matriz para comparar los documentos con la consulta una vez sea llevada a su forma vectorial. En esta etapa de encontrar la matriz también se va conformando el universo de las palabras, y esta información es utilizada para llevar la consulta a la forma vectorial, de la misma forma q los documentos.
+
+\section{Tratamiento de la consulta}
+\label{sec:query}
+
+La consulta se va a representar como un vector del espacio vectorial de los documentos, pero para esto hay que tener en cuanta, tres operadores que pueden estar presente y que le añade un significado a las palabras que afectan:
+\begin{description}
+	\item[El operador ( \textasciicircum{} )]: 
+	
+	Tiene que aparecer delante de un palabra y significa que la palabra debe existir en todos los documentos sugeridos.
+
+	\item[El operador ( ! )]: 
+
+	Parecido al anterior pero esta vez la palabra no puede aparecer en ningún documento devuelto.
+
+	\item[El operador ( * )]: 
+	
+	Añade importancia a la palabra por cada operador de este tipo que aparece delante de esta.
+
+	\item[El operador ( \textasciitilde{} )]: 
+
+	Añade relevancia a los documentos que tengan la pareja de términos entre los que este aparece, más cerca. 
+
+\end{description}
+\clearpage
+
+El primer paso es verificar que la consulta sea valida, o sea, que tenga escrito algo con lo que se pueda realizar una búsqueda, de forma que si esta vacía o no contiene ninguna palabra relevante el motor de búsqueda no te devuelve nada que no sea una advertencia de que la consulta no es válida.
+
+luego se ubica, de existir, estos operadores en la consulta y guardar lo referente a como se utilizaron para luego tenerlos en cuenta a la hora de devolver los documentos:
+
+Teniendo en cuenta cuantos operadores ( * ) estén relacionados a una palabra a su peso (TF-IDF) se le será sumado el valor de la palabra con mayor peso de la consulta tantas veces tenga relacionado operadores ( * ) 
+
+La obtención de las palabras relacionadas con el operador de cercanía ( \textasciitilde{} ) es un proceso un poco más complejo, ya que en este ultimo proceso se ha de obtener las posiciones de dos palabras de forma dinámica, ya que estas pueden variar según la aparición del operador y también se debe asegurar que las parejas de palabras que se obtengan no se guarden duplicadas: dado que “perro, gato” es lo mismo que “gato, perro”.
+
+Las palabras afectadas por los operadores de ( \textasciicircum{} ) y ( ! )  son sencillos de obtener, solo se ha de guardar el texto que le sigue al operador hasta el proximo espacio en blanco o caracter especial.
+
+Luego se obtiene la representación vectorial de la consulta dentro del universo de palabras que se obtuvo en el proceso de obtención de la Matriz Documento-Término, mediante el mismo proceso explicado en la seccion ( \ref{sec:model} ).
+
+Una vez terminado este proceso tenemos lista toda la información para poder empezar a calcular la relevancia de los documentos y ser capaz de devolverlos.
+
+\section{Cálculo de la relevancia de los documentos}
+\label{sec:doc-relevancy}
+
+Existen variadas formas de calcular la similitud o distancia entre dos vectores de un espacio: La formula de la distancia Euclidiana y la similitud del coseno, son las formas más utilizadas en estos casos, en este proyecto se usa la similitud del coseno como forma de hallar esta medida.
+
+La fórmula para calcular la similitud del coseno entre dos vectores, se basa en que tan semejantes son los ángulos de los vectores (dado que si un vector se superpone a otro significa que es linealmente dependiente o sea es el mismo vector escalado, por lo que a vistas practicas es el mismo vector). La formula es la siguiente:
+
+\huge \begin{equation*}
+	D(x,y) = \frac{\sum_{i=1}^{n} x_{i} y_{i} }{ \sum_{i=1}^{n} x_{i}^2 * \sum_{i=1}^{n} y_{i}^2 }
+\end{equation*} \normalsize
+
+\begin{center}
+	\bfseries  X y Y se refiere a vectores de un espacio vectorial de dimension n
+\end{center}
+
+Mientras más cercano a 1 es el resultado más similar son los vectores, mientras que 0 significa que los vectores no comparten similitud alguna. Este resultado es el que dicta que tan alto es la similitud de un documento, pero este no es aún el nivel de relevancia final del documento. 
+
+Primero se debe tener en cuenta el operador de cercanía. Puesto que mientras menos palabras existan entre una pareja de palabras más cercana son, entonces tomando la cercanía como un parámetro en por ciento (mientras más alta mayor es la cercanía), se ha de recorrer el documento buscando por una de las palabras de la pareja, cuando se halla (si no se halla, por supuesto en porcentaje de cercanía es 0) se comienza contar las palabras que existen hasta que se encuentre la otra palabra del par,si se encuentra la misma palabra antes de llegar a su pareja entonces la cuenta se reinicia; así se va llevando una cuenta de la distancia mínima. 
+
+Una vez recorrido el documento y obtenida la distancia mínima de cada pareja, se hace un promedio entre ellas y eso se divide entre la cantidad de palabras del documento, como resultado tenemos la proporción que expresa la porción que representa esa distancia mínima del total de palabras del archivo, se multiplica por 100 y lo que le falta para completar el 100\% es el porcentaje de cercanía.
+ 
+Luego, dado que el valor máximo de relevancia de un documento es 1 y tengo dos datos a tener en cuenta (la cercanía de las palabras requeridas y la similitud del documento con la consulta), se mantuvo la similitud del documento y a lo que le falta al documento para tener un máximo valor ( $X$ ): \( X = 1 - Similitud \) ; se multiplica por el porcentaje de cercanía y se le suma entonces a el valor de  (\( Similitud + X * \%Cercania \)).
+
+De esta forma si un documento cumple con la condición de cercanía entonces es más relevante que cualquier otro documento (o tan relevante como otro que también la cumpla).
+
+Por supuesto el score se calcula después de tener en cuenta los operadores de la consulta ( \textasciicircum{}, ! ). En caso de que las condiciones dispuestas por estos operadores no se cumpla, el documento se ignora.
+
+\section{Fragmento del documento}
+\label{sec:snippet}
+
+Una vez obtenidos los documentos más relevantes se muestran al usuario, pero junto con estos también se debe mostrar un pedazo del propio documento que represente la relevancia del documento. Para cumplir con este requisito se muestra el pedazo de texto que contiene mayor densidad de palabras de la consulta, con un tamaño de 100 palabras en cada fragmento.
+
+\section{Sugerencia}
+\label{sec:suggestion}
+ 
+En caso de que la consulta no arroje ningún o relativamente pocos documento se debe mostrar una sugerencia que muestre una consulta lo más semejante posible y con mejores resultados. En caso de que el usuario se haya equivocado a la hora de escribir una palabra, la sugerencia debería ser capaz de corregir este hecho.
+
+Haciendo uso de un algoritmo: la "Distancia de Levenshtein"; para calcular cantidad mínima de cambios en una palabra quese necesitan para convertirla en otra.
+
+Una vez completado el algoritmo de Levenshtein para hallar la distancia entre las dos palabras, solo quedaría sustituir la palabra por la que menor distancia a ella tenga de entre las palabras del universo. Luego queda reconstruir la consulta con los operadores que poseía.
+
+\section{Conclusion}
+\label{sec:end}
+
+Implementados estas soluciones, el programa es funcional y eficaz, y que no solo realiza rápidas búsquedas sino que también ofrece una experiencia de personalización de la consulta para optimizar las búsquedas del usuario. Fue un proyecto hecho enteramente en el marco de trabajo .Net y fue útil para agrandar los conocimientos sobre esta tecnología, además el desarrollo de la lógica de programación y la implementación de algoritmos estrechamente vinculados al álgebra lineal, desarrollaron la capacidad de abstracción para la resolución de problemas en la computación, quedando demostrando el estrecho vínculo que existe entre estas dos ciencias que son las matemáticas y la computación.
+
+\clearpage
+\endgroup % end report
 \end{document}
