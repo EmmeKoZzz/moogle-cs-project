@@ -12,7 +12,7 @@ Content/*.txt
 **/obj
 
 report/*
-presentation/*
+presentación/*
 !*.tex
 
 # User-specific files
