@@ -105,7 +105,7 @@ public partial class Moogle
 
 	private static float DCosine(Dictionary<string, float> queryVector, Dictionary<string, float> docVector)
 	{
-		// calcula la similitud entre dos vectores a traves de q tan pequenno sea el angulo entre los dos vectores
+		// calcula la similitud entre dos vectores a traves de q tan pequeño sea el angulo entre los dos vectores
 		float Numerator = 0, DenQuery = 0, DenDoc = 0;
 
 		foreach (var Word in queryVector.Keys)
@@ -392,7 +392,7 @@ public partial class Moogle
 			}
 
 			//calcular el porcentaje (en base de 1, es decir el porunidaje xD) de cercania de la pareja en el documento
-			ClosenessPorcent += 1 - 1 * (MinDistance / (float)(DocWords.Length - 2));
+			ClosenessPorcent += 1 - (MinDistance / (float)(DocWords.Length - 2));
 		}
 
 		//Luego Calculo el promedio de los porunidajes de todas las parejas de palabras
