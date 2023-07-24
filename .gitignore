@@ -12,10 +12,8 @@ Content/*.txt
 **/obj
 
 report/*
+presentation/*
 !*.tex
-!report/*.jpeg
-!report/*.png
-
 
 # User-specific files
 *.rsuser
