@@ -12,7 +12,10 @@ Content/*.txt
 **/obj
 
 report/*
-!report/*.tex
+!*.tex
+|*.jpeg
+|*.png
+
 
 # User-specific files
 *.rsuser
