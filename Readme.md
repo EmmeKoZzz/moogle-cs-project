@@ -2,11 +2,18 @@
 
 ## Requisitos
 
-- .NET Framework 7
+- .NET Framework
 
 ## Ejecución y utilización
 
-Para ejecutar el proyecto, primero agregue los documentos que serán tratados como base de datos para las búsquedas en la carpeta "Content", luego ubique la terminal en la carpeta donde se encuentra el proyecto y ejecute el comando - `make dev` - si se encuentra en linux; si lo quiere ejecutar en windows entonces haga el mismo proceso y ejecute el comando - `dotnet watch run --project MoogleServer` -.
+Para ejecutar el proyecto, primero agregue los documentos que serán tratados como base de datos para las búsquedas en la carpeta "Content", luego ubique la terminal en la carpeta scrpt y haga ejecutable el script con el comando `chmod +x proyecto.sh`. Una vez el script sea ejecutable será capaz de usar las siguientes funciones:
+
+- **`./proyecto.sh run`**: Ejecuta el proyecto.
+- **`./proyecto.sh report`**: Compila el informe.
+- **`./proyecto.sh slides`**: Compila la presentación.
+- **`./proyecto.sh show_report`**: Ejecuta el PDF del informe.
+- **`./proyecto.sh show_slides`**: Ejecuta el PDF de la presentación.
+- **`./proyecto.sh clean`**: Elimina todos los archivos creados por el debug de .Net o la compilacion de los PDF por LATEX.
 
 Una vez el proyecto ejecutado, si el navegador no se abre, entonces, puede acceder a él mediante la dirección que se muestra en la terminal. Una vez en el navegador, solo necesita escribir, en la entrada de texto que se le muestra, la búsqueda que desee realizar entre los documentos antes mencionados.
 
