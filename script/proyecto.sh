@@ -82,4 +82,8 @@ case $1 in
 	"clean")
 		clean
 		;;
+	*)
+		echo "$1 is not a funtion.."
+		help
+		;;
 esac
