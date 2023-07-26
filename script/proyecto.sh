@@ -77,7 +77,7 @@ case $1 in
 		show_pdf informe "$2"
 		;;
 	"show_slides")
-		show_pdf informe "$2"
+		show_pdf presentación "$2"
 		;;
 	"clean")
 		clean
